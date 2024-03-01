@@ -17,21 +17,39 @@ app.get("/", function (req, res) {
 app.get("/questions", async function (req, res) {
 	const questionsJSON = await fs.readFile(filePath, "utf-8");
 	const questions = JSON.parse(questionsJSON);
-	res.json(questions)
-})
-
-app.get("/questions/:id", async function (req, res){
-	const questionID = req.params.id;
-	const questionsJSON = await fs.readFile(filePath, "utf-8");
-    const questions = JSON.parse(questionsJSON);
-		for (const question of questions) {
-    		if (question.id === questionID) {
-      	res.json(question);
-    }
-  }
-  res.status(404).json({message:"ID not found"})
+	res.json(questions);
 });
 
+app.get("/questions/:id", async function (req, res) {
+	const questionID = req.params.id;
+	const questionsJSON = await fs.readFile(filePath, "utf-8");
+	const questions = JSON.parse(questionsJSON);
+	for (const question of questions) {
+		if (question.id === questionID) {
+			res.json(question);
+		}
+	}
+	res.status(404).json({ message: "ID not found" });
+});
+
+app.post("/questions", async function (req, res) {
+	const reqBody = req.body;
+	const { question, answer, category } = reqBody;
+	const questionsJSON = await fs.readFile(filePath, "utf-8");
+	const questions = JSON.parse(questionsJSON);
+
+	const newQuestion = {
+		id: uuidv4(),
+		question,
+		answer,
+		category,
+	};
+
+	questions.push(newQuestion);
+	await fs.writeFile(filePath, JSON.stringify(questions, null, 2), "utf-8");
+
+	res.json(newQuestion);
+});
 
 app.listen(PORT, function () {
 	console.log(`Server is now listening on http://localhost:${PORT}`);
