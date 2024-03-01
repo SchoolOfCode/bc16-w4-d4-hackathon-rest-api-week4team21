@@ -4,5 +4,29 @@
     "question": "what is a javascript object",
     "answer": "A collection of key:value pairs.",
     "category": "objects and arrays"
+  },
+  {
+    "id": "ff26d44d-9b6f-4a47-879b-7803fcc5c5cd",
+    "question": "how do you. add an item to the end of an array",
+    "answer": "myArray.push(newItem)",
+    "category": "objects and arrays"
+  },
+  {
+    "id": "79756f96-0fdd-47c5-9ac6-92afa64fb07a",
+    "question": "how do we return the number of items in an array",
+    "answer": "myArray.length",
+    "category": "objects and arrays"
+  },
+  {
+    "id": "55439fa2-6501-413e-8d68-e68f48b631b6",
+    "question": "how do you access the value of a certain property in an object",
+    "answer": "myObject['keyName']",
+    "category": "objects and arrays"
+  },
+  {
+    "id": "c03796a1-4ed6-426e-b7ee-86c548a2fbc3",
+    "question": "what is an array",
+    "answer": "an array is an ordered sequence of items usually of the same type",
+    "category": "objects and arrays"
   }
 ]
