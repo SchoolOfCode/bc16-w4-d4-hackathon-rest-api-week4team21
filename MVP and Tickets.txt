@@ -1,0 +1,28 @@
+MVP 
+- be able to use the five methods for obtaininig/editing/deleting questions in bank
+- initial bank of 10 questions from a particular topic
+- they can GET the "question" object, which contains question and answer, and question number and unique ID, cateogory of question
+
+
+Ticket 1:
+- Set up the database as an array in a .json file
+- Set up rest of file structure
+- intialise node repo + install dependencies
+- import json data into app.js
+- import express
+
+Ticket 2:
+- use GET method to deliver the whole bunch of questions
+
+Ticket 3:
+- use GET to deliver a single question
+
+Ticket 4:
+- use POST to add a new question object
+
+Ticket 5:
+- use to PATCH to edit
+
+Ticket 6:
+- use DELETE to remove
+
