@@ -51,6 +51,30 @@ app.post("/questions", async function (req, res) {
 	res.json(newQuestion);
 });
 
+app.patch("/questions/:id", async function (req, res) {
+	const questionsJSON = await fs.readFile(filePath, "utf-8");
+    const questions = JSON.parse(questionsJSON);
+	const questionID = req.params.id;
+	const newQuestion = req.body.question;
+	const newAnswer = req.body.answer;
+	const newCategory = req.body.category;
+
+	let question = null;
+
+	for (let i=0; i<questions.length; i++) {
+		if (questions[i].id === questionID) {
+			question = questions[i]
+			questions[i].question = newQuestion ?? questions[i].question;
+			questions[i].answer = newAnswer ?? questions[i].answer;
+			questions[i].category = newCategory ?? questions[i].category;
+			break;
+		}
+	}
+	await fs.writeFile(filePath, JSON.stringify(questions, null, 2), "utf-8")
+
+	res.json(question);
+})
+
 app.listen(PORT, function () {
 	console.log(`Server is now listening on http://localhost:${PORT}`);
 });
