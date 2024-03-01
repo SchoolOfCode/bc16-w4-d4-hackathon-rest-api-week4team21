@@ -29,7 +29,7 @@ app.get("/questions/:id", async function (req, res) {
 			res.json(question);
 		}
 	}
-	res.status(404).json({ message: "ID not found" });
+	// res.status(404).json({ message: "ID not found" });
 });
 
 app.post("/questions", async function (req, res) {
@@ -53,7 +53,7 @@ app.post("/questions", async function (req, res) {
 
 app.patch("/questions/:id", async function (req, res) {
 	const questionsJSON = await fs.readFile(filePath, "utf-8");
-    const questions = JSON.parse(questionsJSON);
+	const questions = JSON.parse(questionsJSON);
 	const questionID = req.params.id;
 	const newQuestion = req.body.question;
 	const newAnswer = req.body.answer;
@@ -61,40 +61,40 @@ app.patch("/questions/:id", async function (req, res) {
 
 	let question = null;
 
-	for (let i=0; i<questions.length; i++) {
+	for (let i = 0; i < questions.length; i++) {
 		if (questions[i].id === questionID) {
-			question = questions[i]
+			question = questions[i];
 			questions[i].question = newQuestion ?? questions[i].question;
 			questions[i].answer = newAnswer ?? questions[i].answer;
 			questions[i].category = newCategory ?? questions[i].category;
 			break;
 		}
 	}
-	await fs.writeFile(filePath, JSON.stringify(questions, null, 2), "utf-8")
+	await fs.writeFile(filePath, JSON.stringify(questions, null, 2), "utf-8");
 
 	res.json(question);
 });
 
-app.delete("/questions/:id", async function (req, res){
+app.delete("/questions/:id", async function (req, res) {
 	const questionID = req.params.id;
 	const questionsJSON = await fs.readFile(filePath, "utf-8");
-    const questions = JSON.parse(questionsJSON);
+	const questions = JSON.parse(questionsJSON);
 
-  let questionIndex = null;
+	let questionIndex = null;
 
-  for (let i = 0; i < questions.length; i++) {
-    if (questions[i].id === questionID) {
-      questionIndex = i;
-      break;
-    }
-  }
-  if (questionIndex !== null) {
-    const deletedQuestion = questions.splice(questionIndex, 1);
-    await fs.writeFile(filePath, JSON.stringify(questions, null, 2), "utf-8");
-    res.json(deletedQuestion[0]);
-  }
-  res.status(404).json({message:"Index not found"});
-})
+	for (let i = 0; i < questions.length; i++) {
+		if (questions[i].id === questionID) {
+			questionIndex = i;
+			break;
+		}
+	}
+	if (questionIndex !== null) {
+		const deletedQuestion = questions.splice(questionIndex, 1);
+		await fs.writeFile(filePath, JSON.stringify(questions, null, 2), "utf-8");
+		res.json(deletedQuestion[0]);
+	}
+	res.status(404).json({ message: "Index not found" });
+});
 
 app.listen(PORT, function () {
 	console.log(`Server is now listening on http://localhost:${PORT}`);
